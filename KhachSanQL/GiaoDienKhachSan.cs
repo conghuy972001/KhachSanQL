@@ -47,7 +47,7 @@ namespace KhachSanQL
             DataTable dt = new DataTable();
             da.Fill(dt);
             dataViewPhongGD.DataSource = dt;
-            dinhdangluoi();
+
         }
         private void ShowAllKhachHangGD()
         {
@@ -58,17 +58,7 @@ namespace KhachSanQL
             dataViewKhachhang.DataSource = dt;
             
         }
-        private void dinhdangluoi()
-        {
-            dataViewPhongGD.Columns[0].HeaderText = "Số phòng";
-            dataViewPhongGD.Columns[0].Width = 40;
-            dataViewPhongGD.Columns[1].HeaderText = "Tình Trạng";
-            dataViewPhongGD.Columns[1].Width = 100;
-            dataViewPhongGD.Columns[2].HeaderText = "Số Tầng";
-            dataViewPhongGD.Columns[2].Width = 70;
-            dataViewPhongGD.Columns[3].HeaderText = "Loại Phòng";
-            dataViewPhongGD.Columns[3].Width = 40;
-        }
+
 
         private void loadcmbSanPham()
         {
@@ -103,6 +93,7 @@ namespace KhachSanQL
             label7.Text = username;
             label8.Text = userid;
             ShowAllKhachHangGD();
+            
         }
 
 
@@ -113,14 +104,14 @@ namespace KhachSanQL
         private void btncheckSDT_Click(object sender, EventArgs e)
         {
             string sdt = textSDTKH.Text;
-            string sql = "SELECT * FROM tb_KhachHang WHERE DIENTHOAI ="+sdt;
+            string sql = "SELECT * FROM tb_KhachHang WHERE DIENTHOAI =" + sdt;
             SqlDataAdapter da = new SqlDataAdapter(sql, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
-            dataViewKhachhang.DataSource = dt;
-            tabKhachHang.Show();
+            dataViewCheckKH.DataSource = dt;
 
         }
+
 
         private void btnThemKH_Click(object sender, EventArgs e)
         {
@@ -169,6 +160,22 @@ namespace KhachSanQL
             catch
             {
                 MessageBox.Show("Loi roi ");
+            }
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataViewCheckKH_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int index = e.RowIndex;
+            if (index >= 0)
+            {
+                textSDTKhachHang.Text = dataViewCheckKH.Rows[index].Cells["DIENTHOAI1"].Value.ToString();
+                
+
             }
         }
 
