@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,7 +18,6 @@ namespace KhachSanQL
         SqlDataReader dr;
         string chuoiketnoi = "Data Source = DESKTOP-2HFFDEN; Initial Catalog=QLKHACHSAN; Integrated Security = True";
         SqlConnection con = new SqlConnection();
-        string uid;
 
 
         public DangNhap()
@@ -37,55 +37,56 @@ namespace KhachSanQL
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-        }
-
         private void button1_Enter(object sender, EventArgs e)
         {
-            
-            string tk = textBox1.Text;
-            string mk = textBox2.Text;
-            string sql = "select * from tb_Users where USERNAME = '" + tk + "' and PASSWORD = '" + mk + "' and UID = '"+ cmbPhanQuyen.SelectedValue.ToString().Trim() + "'";
-            cmd = new SqlCommand(sql, con);
-            dr = cmd.ExecuteReader();
-            if (dr.Read() == true)
-            {
-                uid = cmbPhanQuyen.SelectedValue.ToString().Trim();
-                if (uid == "1")
-                {
-                    CaiDatKS f = new CaiDatKS();
-                    f.Show();
-                    this.Hide();
-                }
-                if (uid == "2")
-                {
-                    GiaoDienKhachSan f = new GiaoDienKhachSan(textBox1.Text, uid);
-                    f.Show();
-                    this.Hide();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Vui lòng kiểm tra lại tài khoản hay mật khẩu của bạn!!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            checkquyen();
         }
 
         private void DangNhap_Load(object sender, EventArgs e)
         {
             ketnoicsdl();
-            loadcmbUID();
         }
-        private void loadcmbUID()
+        public void checkquyen()
         {
-            string sql = "SELECT * FROM tb_PhanQuyen";
+            string tk = textBox1.Text;
+            string mk = textBox2.Text;
+            string sql = "SELECT IDPHANQUYEN,UID,FULLNAME FROM tb_Users where USERNAME = '" + tk + "' and PASSWORD = '" + mk + "'";
             SqlDataAdapter da = new SqlDataAdapter(sql, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
-            cmbPhanQuyen.DataSource = dt;
-            cmbPhanQuyen.DisplayMember = dt.Columns["TENQUYEN"].ToString();
-            cmbPhanQuyen.ValueMember = dt.Columns["IDPHANQUYEN"].ToString();
+            if(dt.Rows.Count > 0)
+            {
+                int ktquyen = Convert.ToInt32(dt.Rows[0][0].ToString());
+                string userid = dt.Rows[0][1].ToString();
+                string fullname = dt.Rows[0][2].ToString();
 
+                if (ktquyen == 1)
+                {
+                    CaiDatKS f = new CaiDatKS();
+                    this.Hide();
+                    f.ShowDialog();
+                    this.Close();
+                }
+                if (ktquyen == 2)
+                {
+                    GiaoDienKhachSan f = new GiaoDienKhachSan();
+                    f.username = textBox1.Text;
+                    f.userid = userid;
+                    f.fullname = fullname;
+                    this.Hide();
+                    f.ShowDialog();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Chưa cấp phép sử dụng quyền này");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Bạn vui lòng kiểm tra lại tài khoản và mật khẩu","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            }
+            
         }
 
     }

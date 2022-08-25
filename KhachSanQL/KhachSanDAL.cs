@@ -22,7 +22,7 @@ namespace KhachSanQL
         public DataTable getAllPhong()
         {
             //lenh sql
-            string sql = "SELECT * FROM tb_Phong";
+            string sql = "select * from tb_Phong";
             // tao ket noi den sql
             SqlConnection con = dc.getConnect();
             //khoi tao doi tuong lop sqldataadapter
@@ -40,7 +40,7 @@ namespace KhachSanQL
 
         public bool InsertPhong(tb_Phong ph)
         {
-            string sql = "INSERT INTO tb_Phong( TENPHONG, TRANGTHAI, IDTANG, IDLOAIPHONG) VALUES ( @TENPHONG, @TRANGTHAI, @IDTANG, @IDLOAIPHONG)";
+            string sql = "INSERT INTO tb_Phong( TENPHONG, TRANGTHAI, GIATIEN, IDTANG, IDLOAIPHONG) VALUES ( @TENPHONG, @TRANGTHAI, @GIATIEN, @IDTANG, @IDLOAIPHONG)";
             SqlConnection con = dc.getConnect();
             try
             {
@@ -49,6 +49,7 @@ namespace KhachSanQL
                 //cmd.Parameters.Add("@IDPHONG", SqlDbType.Int).Value = ph.IDPHONG;
                 cmd.Parameters.Add("@TENPHONG", SqlDbType.NVarChar).Value = ph.TENPHONG;
                 cmd.Parameters.Add("@TRANGTHAI", SqlDbType.NVarChar).Value = ph.TRANGTHAI;
+                cmd.Parameters.Add("@GIATIEN", SqlDbType.Int).Value = ph.GIATIEN;
                 cmd.Parameters.Add("@IDTANG", SqlDbType.Int).Value = ph.IDTANG;
                 cmd.Parameters.Add("@IDLOAIPHONG", SqlDbType.Int).Value = ph.IDLOAIPHONG;
                 cmd.ExecuteNonQuery();
@@ -64,7 +65,7 @@ namespace KhachSanQL
 
         public bool UpdatePhong(tb_Phong ph)
         {
-            string sql = "UPDATE tb_Phong SET TENPHONG=@TENPHONG, TRANGTHAI=@TRANGTHAI, IDTANG=@IDTANG, IDLOAIPHONG=@IDLOAIPHONG  WHERE IDPHONG =@IDPHONG";
+            string sql = "UPDATE tb_Phong SET TENPHONG=@TENPHONG, TRANGTHAI=@TRANGTHAI, GIATIEN=@GIATIEN, IDTANG=@IDTANG, IDLOAIPHONG=@IDLOAIPHONG  WHERE IDPHONG =@IDPHONG";
             SqlConnection con = dc.getConnect();
             try
             {
@@ -74,6 +75,7 @@ namespace KhachSanQL
                 cmd.Parameters.Add("@IDPHONG", SqlDbType.Int).Value = ph.IDPHONG;
                 cmd.Parameters.Add("@TENPHONG", SqlDbType.NVarChar).Value = ph.TENPHONG;
                 cmd.Parameters.Add("@TRANGTHAI", SqlDbType.NVarChar).Value = ph.TRANGTHAI;
+                cmd.Parameters.Add("@GIATIEN", SqlDbType.Int).Value = ph.GIATIEN;
                 cmd.Parameters.Add("@IDTANG", SqlDbType.Int).Value = ph.IDTANG;
                 cmd.Parameters.Add("@IDLOAIPHONG", SqlDbType.Int).Value = ph.IDLOAIPHONG;
                 cmd.ExecuteNonQuery();
@@ -107,7 +109,7 @@ namespace KhachSanQL
 
         public DataTable FindPhong(string ph)
         {
-            string sql = "SELECT * FROM tb_Phong WHERE TENPHONG like N'%" + ph + "%' OR IDTANG like N'%" + ph + "%'";
+            string sql = "SELECT * FROM tb_Phong WHERE TENPHONG like N'%" + ph + "%'";
             // tao ket noi den sql
             SqlConnection con = dc.getConnect();
             //khoi tao doi tuong lop sqldataadapter

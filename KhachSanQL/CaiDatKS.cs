@@ -30,37 +30,53 @@ namespace KhachSanQL
 
         private void CaiDatKS_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'qLKHACHSANDataSet.tb_Phong' table. You can move, or remove it, as needed.
-            this.tb_PhongTableAdapter.Fill(this.qLKHACHSANDataSet.tb_Phong);
-            // TODO: This line of code loads data into the 'qLKHACHSANDataSet.tb_LoaiPhong' table. You can move, or remove it, as needed.
-            this.tb_LoaiPhongTableAdapter.Fill(this.qLKHACHSANDataSet.tb_LoaiPhong);
-            // TODO: This line of code loads data into the 'qLKHACHSANDataSet.tb_PhanQuyen' table. You can move, or remove it, as needed.
-            this.tb_PhanQuyenTableAdapter.Fill(this.qLKHACHSANDataSet.tb_PhanQuyen);
-            // TODO: This line of code loads data into the 'qLKHACHSANDataSet.tb_Tang' table. You can move, or remove it, as needed.
-            this.tb_TangTableAdapter.Fill(this.qLKHACHSANDataSet.tb_Tang);
-            // TODO: This line of code loads data into the 'qLKHACHSANDataSet.tb_Tang' table. You can move, or remove it, as needed.
-            this.tb_TangTableAdapter.Fill(this.qLKHACHSANDataSet.tb_Tang);
             //show all phong tren table data
             ShowAllPhong();
             ShowAllSanPham();
             ShowAllUsers();
             ShowAllDatPhong();
-
+            loadcmbTang();
+            loadcmbLoaiPhong();
+            loadPhanQuyen();
 
         }
 
-        //private void loadCmbTang()
-        //{
-        //    SqlConnection con = new SqlConnection(@"Data Source = DESKTOP-2HFFDEN; Initial Catalog=QLKHACHSAN; Integrated Security = True");
-        //    con.Open();
-        //    string sql = "select * from tb_Tang";
-        //    SqlDataAdapter da = new SqlDataAdapter(sql, con);
-        //    DataTable dt = new DataTable();
-        //    da.Fill(dt);
-        //    cmbTangPhong.DataSource = dt;
-        //    cmbTangPhong.DisplayMember = dt.Columns["TENTANG"].ToString();
-        //    cmbTangPhong.ValueMember = dt.Columns["IDTANG"].ToString();
-        //}
+        public void loadcmbTang()
+        {
+            SqlConnection con = new SqlConnection(@"Data Source = DESKTOP-2HFFDEN; Initial Catalog=QLKHACHSAN; Integrated Security = True");
+            con.Open();
+            string sql = "select * from tb_Tang";
+            SqlDataAdapter da = new SqlDataAdapter(sql, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            cmbTang.DataSource = dt;
+            cmbTang.DisplayMember = dt.Columns["TENTANG"].ToString();
+            cmbTang.ValueMember = dt.Columns["IDTANG"].ToString();
+        }
+        public void loadcmbLoaiPhong()
+        {
+            SqlConnection con = new SqlConnection(@"Data Source = DESKTOP-2HFFDEN; Initial Catalog=QLKHACHSAN; Integrated Security = True");
+            con.Open();
+            string sql = "select * from tb_LoaiPhong";
+            SqlDataAdapter da = new SqlDataAdapter(sql, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            cmbLoaiPhong.DataSource = dt;
+            cmbLoaiPhong.DisplayMember = dt.Columns["TENLOAIPHONG"].ToString();
+            cmbLoaiPhong.ValueMember = dt.Columns["IDLOAIPHONG"].ToString();
+        }
+        public void loadPhanQuyen()
+        {
+            SqlConnection con = new SqlConnection(@"Data Source = DESKTOP-2HFFDEN; Initial Catalog=QLKHACHSAN; Integrated Security = True");
+            con.Open();
+            string sql = "select * from tb_PhanQuyen";
+            SqlDataAdapter da = new SqlDataAdapter(sql, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            cmbPhanQuyen.DataSource = dt;
+            cmbPhanQuyen.DisplayMember = dt.Columns["TENQUYEN"].ToString();
+            cmbPhanQuyen.ValueMember = dt.Columns["IDPHANQUYEN"].ToString();
+        }
 
         public bool Checkdata()
         {
@@ -76,16 +92,10 @@ namespace KhachSanQL
                 textTrangThai.Focus();
                 return false;
             }
-            if (string.IsNullOrEmpty(textIDTang.Text))
+            if (string.IsNullOrEmpty(textGiaTienPhong.Text))
             {
-                MessageBox.Show("Bạn chưa nhập ID Tầng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                textIDTang.Focus();
-                return false;
-            }
-            if (string.IsNullOrEmpty(textIDLoaiPhong.Text))
-            {
-                MessageBox.Show("Bạn chưa nhập ID Loại Phòng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                textIDLoaiPhong.Focus();
+                MessageBox.Show("Bạn chưa nhập Giá Tiền Phòng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                textGiaTienPhong.Focus();
                 return false;
             }
             return true;
@@ -98,17 +108,18 @@ namespace KhachSanQL
                 tb_Phong ph = new tb_Phong();
                 ph.TENPHONG = textTenPhong.Text;
                 ph.TRANGTHAI = textTrangThai.Text;
-                ph.IDTANG = int.Parse(textIDTang.Text);
-                ph.IDLOAIPHONG = int.Parse(textIDLoaiPhong.Text);
-                
+                ph.GIATIEN = int.Parse(textGiaTienPhong.Text);
+                ph.IDTANG = cmbTang.SelectedValue.GetHashCode();
+                ph.IDLOAIPHONG = cmbLoaiPhong.SelectedValue.GetHashCode();
+
 
                 if (bllKS.InsertPhong(ph))
                 {
                     ShowAllPhong();
+                    MessageBox.Show("Đã thêm thành công!!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     textTenPhong.Clear();
                     textTrangThai.Clear();
-                    textIDTang.Clear();
-                    textIDLoaiPhong.Clear();
+                    textGiaTienPhong.Clear();
                 }
                 else
                 {
@@ -127,8 +138,9 @@ namespace KhachSanQL
                 ID = Int32.Parse(dataGridViewPhong.Rows[index].Cells["IDPHONG"].Value.ToString());
                 textTenPhong.Text = dataGridViewPhong.Rows[index].Cells["TENPHONG"].Value.ToString();
                 textTrangThai.Text = dataGridViewPhong.Rows[index].Cells["TRANGTHAI"].Value.ToString();
-                textIDTang.Text = dataGridViewPhong.Rows[index].Cells["IDTANG"].Value.ToString();
-                textIDLoaiPhong.Text = dataGridViewPhong.Rows[index].Cells["IDLOAIPHONG"].Value.ToString();
+                textGiaTienPhong.Text = dataGridViewPhong.Rows[index].Cells["GIATIEN"].Value.ToString();
+                cmbTang.SelectedValue = dataGridViewPhong.Rows[index].Cells["IDTANG"].Value.ToString();
+                cmbLoaiPhong.SelectedValue = dataGridViewPhong.Rows[index].Cells["IDLOAIPHONG"].Value.ToString();
             }
         }
 
@@ -140,8 +152,9 @@ namespace KhachSanQL
                 ph.IDPHONG = ID;
                 ph.TENPHONG = textTenPhong.Text;
                 ph.TRANGTHAI = textTrangThai.Text;
-                ph.IDTANG = int.Parse(textIDTang.Text);
-                ph.IDLOAIPHONG = int.Parse(textIDLoaiPhong.Text);
+                ph.GIATIEN = int.Parse(textGiaTienPhong.Text);
+                ph.IDTANG = cmbTang.SelectedValue.GetHashCode();
+                ph.IDLOAIPHONG = cmbLoaiPhong.SelectedValue.GetHashCode();
 
 
                 if (bllKS.UpdatePhong(ph))
@@ -150,8 +163,7 @@ namespace KhachSanQL
                     MessageBox.Show("Cập nhật thành công!!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     textTenPhong.Clear();
                     textTrangThai.Clear();
-                    textIDTang.Clear();
-                    textIDLoaiPhong.Clear();
+                    textGiaTienPhong.Clear();
                 }
                 else
                 {
@@ -172,8 +184,7 @@ namespace KhachSanQL
                     ShowAllPhong();
                     textTenPhong.Clear();
                     textTrangThai.Clear();
-                    textIDTang.Clear();
-                    textIDLoaiPhong.Clear();
+                    textGiaTienPhong.Clear();
                 }
                 else
                 {
@@ -313,12 +324,6 @@ namespace KhachSanQL
                 textPasswordUser.Focus();
                 return false;
             }
-            if (string.IsNullOrEmpty(textIDPhanQuyenUser.Text))
-            {
-                MessageBox.Show("Bạn chưa nhập ID Phân Quyền", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                textIDPhanQuyenUser.Focus();
-                return false;
-            }
             return true;
         }
 
@@ -330,7 +335,7 @@ namespace KhachSanQL
                 us.FULLNAME = textFullNameUser.Text;
                 us.USERNAME = textUserUser.Text;
                 us.PASSWORD = textPasswordUser.Text;
-                us.IDPHANQUYEN = int.Parse(textIDPhanQuyenUser.Text);
+                us.IDPHANQUYEN = cmbPhanQuyen.SelectedValue.GetHashCode();
 
 
                 if (bllKS.InsertUsers(us))
@@ -373,7 +378,7 @@ namespace KhachSanQL
                 textFullNameUser.Text = dataViewUser.Rows[index].Cells["FULLNAME"].Value.ToString();
                 textUserUser.Text = dataViewUser.Rows[index].Cells["USERNAME"].Value.ToString();
                 textPasswordUser.Text = dataViewUser.Rows[index].Cells["PASSWORD"].Value.ToString();
-                textIDPhanQuyenUser.Text = dataViewUser.Rows[index].Cells["IDPHANQUYEN"].Value.ToString();
+                cmbPhanQuyen.SelectedValue = dataViewUser.Rows[index].Cells["IDPHANQUYEN"].Value.ToString();
             }
         }
 
@@ -386,7 +391,7 @@ namespace KhachSanQL
                 us.FULLNAME = textFullNameUser.Text;
                 us.USERNAME = textUserUser.Text;
                 us.PASSWORD = textPasswordUser.Text;
-                us.IDPHANQUYEN = int.Parse(textIDPhanQuyenUser.Text);
+                us.IDPHANQUYEN = cmbPhanQuyen.SelectedValue.GetHashCode();
 
 
                 if (bllKS.UpdateUsers(us))

@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Reflection;
 
 namespace KhachSanQL
 {
     public partial class GiaoDienKhachSan : Form
     {
-        private string username, userid;
+
+        public string username,userid, fullname;
         public GiaoDienKhachSan()
         {
             InitializeComponent();
@@ -21,8 +23,6 @@ namespace KhachSanQL
         public GiaoDienKhachSan(string user, string uid)
         {
             InitializeComponent();
-            this.username = user;
-            this.userid = uid;
         }
         string chuoiketnoi = "Data Source = DESKTOP-2HFFDEN; Initial Catalog=QLKHACHSAN; Integrated Security = True";
         SqlConnection con = new SqlConnection();
@@ -42,7 +42,7 @@ namespace KhachSanQL
 
         private void ShowAllPhongGD()
         {
-            string sql = "SELECT ph.TENPHONG, ph.TRANGTHAI, tg.TENTANG, lph.TENLOAIPHONG FROM tb_Phong ph INNER JOIN tb_Tang tg ON ph.IDTANG = tg.IDTANG INNER JOIN tb_LoaiPhong lph ON ph.IDLOAIPHONG = lph.IDLOAIPHONG";
+            string sql = "SELECT ph.TENPHONG, ph.TRANGTHAI, ph.GIATIEN, tg.TENTANG, lph.TENLOAIPHONG FROM tb_Phong ph INNER JOIN tb_Tang tg ON ph.IDTANG = tg.IDTANG INNER JOIN tb_LoaiPhong lph ON ph.IDLOAIPHONG = lph.IDLOAIPHONG";
             SqlDataAdapter da = new SqlDataAdapter(sql, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -69,6 +69,7 @@ namespace KhachSanQL
             cmbSanPham.DataSource = dt;
             cmbSanPham.DisplayMember = dt.Columns["TENSP"].ToString();
             cmbSanPham.ValueMember = dt.Columns["IDSP"].ToString();
+            
         }
         private void loadcmbSoPhong()
         {
@@ -92,14 +93,20 @@ namespace KhachSanQL
             loadcmbSoPhong();
             label7.Text = username;
             label8.Text = userid;
+            labelFullName.Text = fullname;
             ShowAllKhachHangGD();
-            
+            loadgiatienDichVu();
+
+
         }
 
-
-        private void dataViewPhongGD_CellClick(object sender, DataGridViewCellEventArgs e)
+        
+        public void dataViewPhongGD_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             cmbSoPhong.Text = dataViewPhongGD.Rows[e.RowIndex].Cells[0].Value.ToString();
+            textGiaPhong.Text = dataViewPhongGD.Rows[e.RowIndex].Cells["GIATIEN"].Value.ToString();
+
+
         }
         private void btncheckSDT_Click(object sender, EventArgs e)
         {
@@ -134,14 +141,6 @@ namespace KhachSanQL
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //this.Close();
-            DangNhap f = new DangNhap();
-            f.Show();
-
-        }
-
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
             ShowAllKhachHangGD();
@@ -173,20 +172,116 @@ namespace KhachSanQL
             int index = e.RowIndex;
             if (index >= 0)
             {
-                textSDTKhachHang.Text = dataViewCheckKH.Rows[index].Cells["DIENTHOAI1"].Value.ToString();
-                
-
+                textSDTKhachHang.Text = dataViewCheckKH.Rows[index].Cells["DIENTHOAI1"].Value.ToString();               
             }
         }
 
-        private void btnDatPhong_Click(object sender, EventArgs e)
+
+
+
+        private void datphongandtraphong()
         {
+            string sqldoidata = "UPDATE tb_Phong SET TRANGTHAI = N'đã đặt phòng' WHERE IDPHONG = " + cmbSoPhong.SelectedValue.ToString().Trim();
+            try
+            {
+                SqlCommand sqlcmd1 = new SqlCommand(sqldoidata, con);
+                sqlcmd1.ExecuteNonQuery();
+                //MessageBox.Show("Thành công");
+                ShowAllPhongGD();
+                //textSDTKhachHang.Clear();
+                textSoNgayLuuTru.Clear();
+                Report f = new Report();
+                f.sdt = textSDTKhachHang.Text;
+                f.giadv = textGiaDichVu.Text;
+                f.giaphong = textGiaPhong.Text;
+                f.tendv = cmbSanPham.Text;
+                f.tenphong = cmbSoPhong.Text;
+                f.tennv = labelFullName.Text;
+                f.tongtien = textTongTien.Text;
+                ////////////////////////////////////////////////////
+                textSDTKhachHang.Clear();
+
+                f.Show();
+            }
+            catch
+            {
+                MessageBox.Show("Loi roi ");
+            }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+        public void loadgiatienDichVu()
+        {
+            string loadgiaSP = "select DONGIA from tb_SanPham where IDSP= " + cmbSanPham.SelectedValue.ToString().Trim();
+            SqlDataAdapter da = new SqlDataAdapter(loadgiaSP, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            BindingSource bd = new BindingSource();
+            bd.DataSource = dt;
+            textGiaDichVu.DataBindings.Clear();
+            textGiaDichVu.DataBindings.Add("text", bd, "DONGIA");
+            //int giadv = int.Parse(textGiaDichVu.Text);
+            //string tongtien = giadv + giaphong;
+            
+
+        }
+
+
+        private void cmbSanPham_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            loadgiatienDichVu();
+        }
+
+        private void btnDXuat_Click(object sender, EventArgs e)
+        {
+            DangNhap f = new DangNhap();
+            this.Hide();
+            f.ShowDialog();
+            this.Close();
+        }
+
+        private void btnDP_Click(object sender, EventArgs e)
+        {
+            dieukiendatphong();
+        }
+
+        public void dieukiendatphong()
+        {
+            int x = cmbSoPhong.SelectedValue.GetHashCode();
+            string y = x.ToString(); 
+            string sql = "SELECT TRANGTHAI FROM tb_Phong WHERE IDPHONG =" + x;
+            SqlDataAdapter da = new SqlDataAdapter(sql, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            string dieukhien = dt.Rows[0][0].ToString();
+            if (dieukhien == "đã đặt phòng")
+            {
+                MessageBox.Show("Phòng đã có người đặt", "Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            }
+            else
+            {
+                
+                datphong();
+            }
+
+        }
+
+
+        public void datphong()
+        {
+            //int giadv = int.Parse(textGiaDichVu.Text);
+            //int giaphong = int.Parse(textGiaPhong.Text);
+            //int tongtien = giadv + giaphong;
+            //textTongTien.Text = tongtien.ToString();
             if (Checkdata())
             {
+
                 string sqldatphong = "INSERT INTO tb_DatPhong VALUES ('" + cmbSoPhong.SelectedValue.ToString().Trim() + "','" + textSDTKhachHang.Text
                     + "','" + dateTimeCheckin.Text + "','" + dateTimeCheckOut.Text + "','"
-                    + textSoNgayLuuTru.Text + "','" + userid + "','" + cmbSanPham.SelectedValue.ToString().Trim() + "')";
-
+                    + textSoNgayLuuTru.Text + "','" + textTongTien.Text+ "','" + userid + "','" + cmbSanPham.SelectedValue.ToString().Trim() + "')";
                 try
                 {
                     SqlCommand sqlcmd = new SqlCommand(sqldatphong, con);
@@ -202,25 +297,17 @@ namespace KhachSanQL
                     MessageBox.Show("Loi roi ban oi!!");
                 }
             }
+        }
 
-        }
-        private void datphongandtraphong()
+        private void btnTinhTien_Click(object sender, EventArgs e)
         {
-            string sqldoidata = "UPDATE tb_Phong SET TRANGTHAI = N'đã đặt phòng' WHERE IDPHONG = " + cmbSoPhong.SelectedValue.ToString().Trim();
-            try
-            {
-                SqlCommand sqlcmd1 = new SqlCommand(sqldoidata, con);
-                sqlcmd1.ExecuteNonQuery();
-                //MessageBox.Show("Thành công");
-                ShowAllPhongGD();
-                textSDTKhachHang.Clear();
-                textSoNgayLuuTru.Clear();
-            }
-            catch
-            {
-                MessageBox.Show("Loi roi ");
-            }
+            //textGiaPhong.Text = "0";
+            int giadv = int.Parse(textGiaDichVu.Text);
+            int giaphong = int.Parse(textGiaPhong.Text);
+            int tongtien = giadv + giaphong;
+            textTongTien.Text = tongtien.ToString();
         }
+
         public bool Checkdata()
         {
 
@@ -239,5 +326,6 @@ namespace KhachSanQL
 
             return true;
         }
+
     }
 }

@@ -14,6 +14,8 @@ namespace KhachSanQL
 
         public string TRANGTHAI { set; get; }
 
+        public int GIATIEN { set; get; }
+
         public int IDTANG { set; get; }
 
         public int IDLOAIPHONG { set; get; }

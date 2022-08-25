@@ -33,8 +33,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.cmbPhanQuyen = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -72,39 +70,19 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(106, 282);
+            this.button1.Location = new System.Drawing.Point(90, 218);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(126, 35);
             this.button1.TabIndex = 4;
             this.button1.Text = "Đăng nhập";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             this.button1.Enter += new System.EventHandler(this.button1_Enter);
-            // 
-            // cmbPhanQuyen
-            // 
-            this.cmbPhanQuyen.FormattingEnabled = true;
-            this.cmbPhanQuyen.Location = new System.Drawing.Point(35, 214);
-            this.cmbPhanQuyen.Name = "cmbPhanQuyen";
-            this.cmbPhanQuyen.Size = new System.Drawing.Size(260, 24);
-            this.cmbPhanQuyen.TabIndex = 7;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(35, 192);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(49, 16);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Quyền:";
             // 
             // DangNhap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(343, 382);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.cmbPhanQuyen);
+            this.ClientSize = new System.Drawing.Size(320, 382);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
@@ -126,7 +104,5 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox cmbPhanQuyen;
-        private System.Windows.Forms.Label label3;
     }
 }
