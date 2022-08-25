@@ -44,23 +44,23 @@ namespace KhachSanQL
             ShowAllPhong();
             ShowAllSanPham();
             ShowAllUsers();
-            loadCmbTang();
+            //loadCmbTang();
 
 
         }
 
-        private void loadCmbTang()
-        {
-            SqlConnection con = new SqlConnection(@"Data Source = DESKTOP-2HFFDEN; Initial Catalog=QLKHACHSAN; Integrated Security = True");
-            con.Open();
-            string sql = "select * from tb_Tang";
-            SqlDataAdapter da = new SqlDataAdapter(sql, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            cmbTangPhong.DataSource = dt;
-            cmbTangPhong.DisplayMember = dt.Columns["TENTANG"].ToString();
-            cmbTangPhong.ValueMember = dt.Columns["IDTANG"].ToString();
-        }
+        //private void loadCmbTang()
+        //{
+        //    SqlConnection con = new SqlConnection(@"Data Source = DESKTOP-2HFFDEN; Initial Catalog=QLKHACHSAN; Integrated Security = True");
+        //    con.Open();
+        //    string sql = "select * from tb_Tang";
+        //    SqlDataAdapter da = new SqlDataAdapter(sql, con);
+        //    DataTable dt = new DataTable();
+        //    da.Fill(dt);
+        //    cmbTangPhong.DataSource = dt;
+        //    cmbTangPhong.DisplayMember = dt.Columns["TENTANG"].ToString();
+        //    cmbTangPhong.ValueMember = dt.Columns["IDTANG"].ToString();
+        //}
 
         public bool Checkdata()
         {
@@ -402,9 +402,5 @@ namespace KhachSanQL
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            tabPagePhong.Show();
-        }
     }
 }

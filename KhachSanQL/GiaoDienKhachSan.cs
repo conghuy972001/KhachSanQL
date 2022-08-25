@@ -189,25 +189,11 @@ namespace KhachSanQL
             {
                 SqlCommand sqlcmd = new SqlCommand(sqldatphong, con);
                 sqlcmd.ExecuteNonQuery();
-
-
-                string sqldoidata = "UPDATE tb_Phong SET TRANGTHAI = N'đã đặt phòng' WHERE IDPHONG = " + cmbSoPhong.SelectedValue.ToString().Trim();
-                try
-                {
-                    SqlCommand sqlcmd1 = new SqlCommand(sqldoidata, con);
-                    sqlcmd1.ExecuteNonQuery();
-                    MessageBox.Show("Thành công");
-                    ShowAllPhongGD();
-                    textSDTKH.Clear();
-                    textSoNgayLuuTru.Clear();
-                }
-                catch 
-                {
-                    MessageBox.Show("Loi roi ");
-                }
-
-
-
+                ShowAllPhongGD();
+                textSDTKH.Clear();
+                textSoNgayLuuTru.Clear();
+                MessageBox.Show("Đặt Phòng thành công");
+                datphongandtraphong();
             }
             catch
             {
@@ -215,9 +201,22 @@ namespace KhachSanQL
             }
 
         }
-
-
-
-
+        private void datphongandtraphong()
+        {
+                string sqldoidata = "UPDATE tb_Phong SET TRANGTHAI = N'đã đặt phòng' WHERE IDPHONG = " + cmbSoPhong.SelectedValue.ToString().Trim();
+                try
+                {
+                    SqlCommand sqlcmd1 = new SqlCommand(sqldoidata, con);
+                    sqlcmd1.ExecuteNonQuery();
+                //MessageBox.Show("Thành công");
+                    ShowAllPhongGD();
+                textSDTKhachHang.Clear();
+                    textSoNgayLuuTru.Clear();
+                }
+                catch 
+                {
+                    MessageBox.Show("Loi roi ");
+                }
+        }
     }
 }
