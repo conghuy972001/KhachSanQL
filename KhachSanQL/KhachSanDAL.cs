@@ -280,8 +280,35 @@ namespace KhachSanQL
             }
             return true;
         }
-
-
+        public DataTable getAllDatPhong()
+        {
+            string sql = "SELECT * FROM tb_DatPhong";
+            SqlConnection con = dc.getConnect();
+            da = new SqlDataAdapter(sql, con);
+            con.Open();
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            return dt;
+        }
+        public bool DeleteDatPhong(tb_DatPhong dp)
+        {
+            string sql = "DELETE tb_DatPhong WHERE IDDATPHONG=@IDDATPHONG";
+            SqlConnection con = dc.getConnect();
+            try
+            {
+                cmd = new SqlCommand(sql, con);
+                con.Open();
+                cmd.Parameters.Add("@IDDATPHONG", SqlDbType.Int).Value = dp.IDDATPHONG;
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
+        }
 
 
     }

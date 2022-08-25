@@ -72,7 +72,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tabPageUser = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
             this.dataViewUser = new System.Windows.Forms.DataGridView();
             this.UID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FULLNAME = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -90,6 +89,17 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.tabDatPhong = new System.Windows.Forms.TabPage();
+            this.btnXoaDatPhong = new System.Windows.Forms.Button();
+            this.dataViewDatPhong = new System.Windows.Forms.DataGridView();
+            this.IDDATPHONG = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IDPHONG1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SDTKH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NGAYDAT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NGAYTRA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SONGAYLUUTRU = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UID1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IDSP1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbTangBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.tb_TangTableAdapter = new KhachSanQL.QLKHACHSANDataSetTableAdapters.tb_TangTableAdapter();
             this.tbPhanQuyenBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -98,8 +108,6 @@
             this.tb_TangTableAdapter1 = new KhachSanQL.QLKHACHSANDataSetTableAdapters.tb_TangTableAdapter();
             this.fKtbPhongtbTangBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_PhongTableAdapter = new KhachSanQL.QLKHACHSANDataSetTableAdapters.tb_PhongTableAdapter();
-            this.cmbTangPhong = new System.Windows.Forms.ComboBox();
-            this.cmbLoaiPhongPhong = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPhong)).BeginInit();
             this.tabControl.SuspendLayout();
             this.tabPagePhong.SuspendLayout();
@@ -112,6 +120,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSP)).BeginInit();
             this.tabPageUser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataViewUser)).BeginInit();
+            this.tabDatPhong.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataViewDatPhong)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbTangBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbPhanQuyenBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fKtbPhongtbTangBindingSource)).BeginInit();
@@ -232,14 +242,14 @@
             // 
             this.textIDTang.Location = new System.Drawing.Point(146, 107);
             this.textIDTang.Name = "textIDTang";
-            this.textIDTang.Size = new System.Drawing.Size(46, 24);
+            this.textIDTang.Size = new System.Drawing.Size(172, 24);
             this.textIDTang.TabIndex = 8;
             // 
             // textIDLoaiPhong
             // 
             this.textIDLoaiPhong.Location = new System.Drawing.Point(146, 148);
             this.textIDLoaiPhong.Name = "textIDLoaiPhong";
-            this.textIDLoaiPhong.Size = new System.Drawing.Size(46, 24);
+            this.textIDLoaiPhong.Size = new System.Drawing.Size(172, 24);
             this.textIDLoaiPhong.TabIndex = 9;
             // 
             // btnThem
@@ -295,6 +305,7 @@
             this.tabControl.Controls.Add(this.tabPagePhong);
             this.tabControl.Controls.Add(this.tabPageSanPham);
             this.tabControl.Controls.Add(this.tabPageUser);
+            this.tabControl.Controls.Add(this.tabDatPhong);
             this.tabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl.ItemSize = new System.Drawing.Size(51, 21);
             this.tabControl.Location = new System.Drawing.Point(2, 2);
@@ -306,8 +317,6 @@
             // 
             // tabPagePhong
             // 
-            this.tabPagePhong.Controls.Add(this.cmbLoaiPhongPhong);
-            this.tabPagePhong.Controls.Add(this.cmbTangPhong);
             this.tabPagePhong.Controls.Add(this.dataGridView2);
             this.tabPagePhong.Controls.Add(this.dataGridView1);
             this.tabPagePhong.Controls.Add(this.dataGridViewPhong);
@@ -428,7 +437,7 @@
             this.tabPageSanPham.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageSanPham.Size = new System.Drawing.Size(938, 639);
             this.tabPageSanPham.TabIndex = 1;
-            this.tabPageSanPham.Text = "Sản Phẩm";
+            this.tabPageSanPham.Text = "Dịch vụ";
             this.tabPageSanPham.UseVisualStyleBackColor = true;
             // 
             // btnCapNhapSP
@@ -487,7 +496,7 @@
             // TENSP
             // 
             this.TENSP.DataPropertyName = "TENSP";
-            this.TENSP.HeaderText = "Tên Sản Phẩm";
+            this.TENSP.HeaderText = "Tên Dịch Vụ";
             this.TENSP.MinimumWidth = 6;
             this.TENSP.Name = "TENSP";
             this.TENSP.Width = 125;
@@ -528,13 +537,12 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(14, 40);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(110, 18);
+            this.label6.Size = new System.Drawing.Size(90, 18);
             this.label6.TabIndex = 0;
-            this.label6.Text = "Tên Sản Phẩm:";
+            this.label6.Text = "Tên Dịch vụ:";
             // 
             // tabPageUser
             // 
-            this.tabPageUser.Controls.Add(this.button1);
             this.tabPageUser.Controls.Add(this.dataViewUser);
             this.tabPageUser.Controls.Add(this.btnCapNhatUser);
             this.tabPageUser.Controls.Add(this.btnXoaUser);
@@ -554,16 +562,6 @@
             this.tabPageUser.TabIndex = 2;
             this.tabPageUser.Text = "User";
             this.tabPageUser.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(668, 95);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(115, 58);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // dataViewUser
             // 
@@ -716,6 +714,112 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Họ và tên:";
             // 
+            // tabDatPhong
+            // 
+            this.tabDatPhong.Controls.Add(this.btnXoaDatPhong);
+            this.tabDatPhong.Controls.Add(this.dataViewDatPhong);
+            this.tabDatPhong.Location = new System.Drawing.Point(4, 25);
+            this.tabDatPhong.Name = "tabDatPhong";
+            this.tabDatPhong.Padding = new System.Windows.Forms.Padding(3);
+            this.tabDatPhong.Size = new System.Drawing.Size(938, 639);
+            this.tabDatPhong.TabIndex = 3;
+            this.tabDatPhong.Text = "Đặt Phòng";
+            this.tabDatPhong.UseVisualStyleBackColor = true;
+            // 
+            // btnXoaDatPhong
+            // 
+            this.btnXoaDatPhong.Location = new System.Drawing.Point(387, 51);
+            this.btnXoaDatPhong.Name = "btnXoaDatPhong";
+            this.btnXoaDatPhong.Size = new System.Drawing.Size(75, 31);
+            this.btnXoaDatPhong.TabIndex = 1;
+            this.btnXoaDatPhong.Text = "Xóa";
+            this.btnXoaDatPhong.UseVisualStyleBackColor = true;
+            this.btnXoaDatPhong.Click += new System.EventHandler(this.btnXoaDatPhong_Click);
+            // 
+            // dataViewDatPhong
+            // 
+            this.dataViewDatPhong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataViewDatPhong.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IDDATPHONG,
+            this.IDPHONG1,
+            this.SDTKH,
+            this.NGAYDAT,
+            this.NGAYTRA,
+            this.SONGAYLUUTRU,
+            this.UID1,
+            this.IDSP1});
+            this.dataViewDatPhong.Location = new System.Drawing.Point(6, 124);
+            this.dataViewDatPhong.Name = "dataViewDatPhong";
+            this.dataViewDatPhong.RowHeadersWidth = 51;
+            this.dataViewDatPhong.RowTemplate.Height = 24;
+            this.dataViewDatPhong.Size = new System.Drawing.Size(926, 509);
+            this.dataViewDatPhong.TabIndex = 0;
+            this.dataViewDatPhong.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataViewDatPhong_CellClick);
+            // 
+            // IDDATPHONG
+            // 
+            this.IDDATPHONG.DataPropertyName = "IDDATPHONG";
+            this.IDDATPHONG.HeaderText = "ID Đặt Phòng";
+            this.IDDATPHONG.MinimumWidth = 6;
+            this.IDDATPHONG.Name = "IDDATPHONG";
+            this.IDDATPHONG.Width = 125;
+            // 
+            // IDPHONG1
+            // 
+            this.IDPHONG1.DataPropertyName = "IDPHONG";
+            this.IDPHONG1.HeaderText = "ID phòng";
+            this.IDPHONG1.MinimumWidth = 6;
+            this.IDPHONG1.Name = "IDPHONG1";
+            this.IDPHONG1.Width = 125;
+            // 
+            // SDTKH
+            // 
+            this.SDTKH.DataPropertyName = "SDTKH";
+            this.SDTKH.HeaderText = "SDTKH";
+            this.SDTKH.MinimumWidth = 6;
+            this.SDTKH.Name = "SDTKH";
+            this.SDTKH.Width = 125;
+            // 
+            // NGAYDAT
+            // 
+            this.NGAYDAT.DataPropertyName = "NGAYDAT";
+            this.NGAYDAT.HeaderText = "Ngày đặt";
+            this.NGAYDAT.MinimumWidth = 6;
+            this.NGAYDAT.Name = "NGAYDAT";
+            this.NGAYDAT.Width = 125;
+            // 
+            // NGAYTRA
+            // 
+            this.NGAYTRA.DataPropertyName = "NGAYTRA";
+            this.NGAYTRA.HeaderText = "Ngày Trả";
+            this.NGAYTRA.MinimumWidth = 6;
+            this.NGAYTRA.Name = "NGAYTRA";
+            this.NGAYTRA.Width = 125;
+            // 
+            // SONGAYLUUTRU
+            // 
+            this.SONGAYLUUTRU.DataPropertyName = "SONGAYLUUTRU";
+            this.SONGAYLUUTRU.HeaderText = "SNLT";
+            this.SONGAYLUUTRU.MinimumWidth = 6;
+            this.SONGAYLUUTRU.Name = "SONGAYLUUTRU";
+            this.SONGAYLUUTRU.Width = 125;
+            // 
+            // UID1
+            // 
+            this.UID1.DataPropertyName = "UID";
+            this.UID1.HeaderText = "ID User";
+            this.UID1.MinimumWidth = 6;
+            this.UID1.Name = "UID1";
+            this.UID1.Width = 125;
+            // 
+            // IDSP1
+            // 
+            this.IDSP1.DataPropertyName = "IDSP";
+            this.IDSP1.HeaderText = "ID Dịch vụ";
+            this.IDSP1.MinimumWidth = 6;
+            this.IDSP1.Name = "IDSP1";
+            this.IDSP1.Width = 125;
+            // 
             // tbTangBindingSource1
             // 
             this.tbTangBindingSource1.DataMember = "tb_Tang";
@@ -751,22 +855,6 @@
             // 
             this.tb_PhongTableAdapter.ClearBeforeFill = true;
             // 
-            // cmbTangPhong
-            // 
-            this.cmbTangPhong.FormattingEnabled = true;
-            this.cmbTangPhong.Location = new System.Drawing.Point(198, 107);
-            this.cmbTangPhong.Name = "cmbTangPhong";
-            this.cmbTangPhong.Size = new System.Drawing.Size(121, 26);
-            this.cmbTangPhong.TabIndex = 18;
-            // 
-            // cmbLoaiPhongPhong
-            // 
-            this.cmbLoaiPhongPhong.FormattingEnabled = true;
-            this.cmbLoaiPhongPhong.Location = new System.Drawing.Point(198, 148);
-            this.cmbLoaiPhongPhong.Name = "cmbLoaiPhongPhong";
-            this.cmbLoaiPhongPhong.Size = new System.Drawing.Size(121, 26);
-            this.cmbLoaiPhongPhong.TabIndex = 19;
-            // 
             // CaiDatKS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -792,6 +880,8 @@
             this.tabPageUser.ResumeLayout(false);
             this.tabPageUser.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataViewUser)).EndInit();
+            this.tabDatPhong.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataViewDatPhong)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbTangBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbPhanQuyenBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fKtbPhongtbTangBindingSource)).EndInit();
@@ -845,9 +935,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TRANGTHAI;
         private System.Windows.Forms.DataGridViewTextBoxColumn IDTANG;
         private System.Windows.Forms.DataGridViewTextBoxColumn IDLOAIPHONG;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IDSP;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TENSP;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DONGIA;
         private System.Windows.Forms.BindingSource fKtbPhongtbTangBindingSource;
         private QLKHACHSANDataSetTableAdapters.tb_PhongTableAdapter tb_PhongTableAdapter;
         private System.Windows.Forms.BindingSource tbTangBindingSource1;
@@ -869,9 +956,20 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn USERNAME;
         private System.Windows.Forms.DataGridViewTextBoxColumn PASSWORD;
         private System.Windows.Forms.DataGridViewTextBoxColumn IDPHANQUYEN;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox cmbLoaiPhongPhong;
-        private System.Windows.Forms.ComboBox cmbTangPhong;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDSP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TENSP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DONGIA;
+        private System.Windows.Forms.TabPage tabDatPhong;
+        private System.Windows.Forms.DataGridView dataViewDatPhong;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDDATPHONG;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDPHONG1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SDTKH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NGAYDAT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NGAYTRA;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SONGAYLUUTRU;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UID1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDSP1;
+        private System.Windows.Forms.Button btnXoaDatPhong;
     }
 }
 

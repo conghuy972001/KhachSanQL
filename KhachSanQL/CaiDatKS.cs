@@ -44,7 +44,7 @@ namespace KhachSanQL
             ShowAllPhong();
             ShowAllSanPham();
             ShowAllUsers();
-            //loadCmbTang();
+            ShowAllDatPhong();
 
 
         }
@@ -401,6 +401,45 @@ namespace KhachSanQL
 
             }
         }
+        public void ShowAllDatPhong()
+        {
+            dal = new KhachSanDAL();
+            try
+            {
+                
+                DataTable dt = bllKS.getAllDatPhong();
+                dataViewDatPhong.DataSource = dt;
+            }
+            catch
+            {
+                MessageBox.Show("Lỗi hệ thống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
+        private void btnXoaDatPhong_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Bạn có muốn xóa hay không?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                tb_DatPhong dp = new tb_DatPhong();
+                dp.IDDATPHONG = ID;
+                if (bllKS.DeleteDatPhong(dp))
+                {
+                    ShowAllDatPhong();
+                }
+                else
+                {
+                    MessageBox.Show("Đã có lỗi xảy ra, vui lòng thử lại sau", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+            }
+        }
+
+        private void dataViewDatPhong_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int index = e.RowIndex;
+            if (index >= 0)
+            {
+                ID = Int32.Parse(dataViewDatPhong.Rows[index].Cells["IDDATPHONG"].Value.ToString());
+            }
+        }
     }
 }

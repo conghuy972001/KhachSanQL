@@ -69,6 +69,14 @@ namespace KhachSanQL
         {
             return dalKS.UpdateUsers(us);
         }
+        public DataTable getAllDatPhong()
+        {
+            return dalKS.getAllDatPhong();
+        }
+        public bool DeleteDatPhong(tb_DatPhong dp)
+        {
+            return dalKS.DeleteDatPhong(dp);
+        }
 
 
 

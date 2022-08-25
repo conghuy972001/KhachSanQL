@@ -181,42 +181,63 @@ namespace KhachSanQL
 
         private void btnDatPhong_Click(object sender, EventArgs e)
         {
-            string sqldatphong = "INSERT INTO tb_DatPhong VALUES ('" + cmbSoPhong.SelectedValue.ToString().Trim() + "','" + textSDTKhachHang.Text
-                +  "','" + dateTimeCheckin.Text + "','" + dateTimeCheckOut.Text + "','"
-                + textSoNgayLuuTru.Text + "','"+ userid + "','" + cmbSanPham.SelectedValue.ToString().Trim() + "')";
-            
-            try
+            if (Checkdata())
             {
-                SqlCommand sqlcmd = new SqlCommand(sqldatphong, con);
-                sqlcmd.ExecuteNonQuery();
-                ShowAllPhongGD();
-                textSDTKH.Clear();
-                textSoNgayLuuTru.Clear();
-                MessageBox.Show("Đặt Phòng thành công");
-                datphongandtraphong();
-            }
-            catch
-            {
-                MessageBox.Show("Loi roi ban oi!!");
+                string sqldatphong = "INSERT INTO tb_DatPhong VALUES ('" + cmbSoPhong.SelectedValue.ToString().Trim() + "','" + textSDTKhachHang.Text
+                    + "','" + dateTimeCheckin.Text + "','" + dateTimeCheckOut.Text + "','"
+                    + textSoNgayLuuTru.Text + "','" + userid + "','" + cmbSanPham.SelectedValue.ToString().Trim() + "')";
+
+                try
+                {
+                    SqlCommand sqlcmd = new SqlCommand(sqldatphong, con);
+                    sqlcmd.ExecuteNonQuery();
+                    ShowAllPhongGD();
+                    textSDTKH.Clear();
+                    textSoNgayLuuTru.Clear();
+                    MessageBox.Show("Đặt Phòng thành công");
+                    datphongandtraphong();
+                }
+                catch
+                {
+                    MessageBox.Show("Loi roi ban oi!!");
+                }
             }
 
         }
         private void datphongandtraphong()
         {
-                string sqldoidata = "UPDATE tb_Phong SET TRANGTHAI = N'đã đặt phòng' WHERE IDPHONG = " + cmbSoPhong.SelectedValue.ToString().Trim();
-                try
-                {
-                    SqlCommand sqlcmd1 = new SqlCommand(sqldoidata, con);
-                    sqlcmd1.ExecuteNonQuery();
+            string sqldoidata = "UPDATE tb_Phong SET TRANGTHAI = N'đã đặt phòng' WHERE IDPHONG = " + cmbSoPhong.SelectedValue.ToString().Trim();
+            try
+            {
+                SqlCommand sqlcmd1 = new SqlCommand(sqldoidata, con);
+                sqlcmd1.ExecuteNonQuery();
                 //MessageBox.Show("Thành công");
-                    ShowAllPhongGD();
+                ShowAllPhongGD();
                 textSDTKhachHang.Clear();
-                    textSoNgayLuuTru.Clear();
-                }
-                catch 
-                {
-                    MessageBox.Show("Loi roi ");
-                }
+                textSoNgayLuuTru.Clear();
+            }
+            catch
+            {
+                MessageBox.Show("Loi roi ");
+            }
+        }
+        public bool Checkdata()
+        {
+
+            if (string.IsNullOrEmpty(textSDTKhachHang.Text))
+            {
+                MessageBox.Show("Bạn chưa nhập Số điện thoại Khách Hàng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                textSDTKhachHang.Focus();
+                return false;
+            }
+            if (string.IsNullOrEmpty(textSoNgayLuuTru.Text))
+            {
+                MessageBox.Show("Bạn chưa nhập Số ngày lưu trữ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                textSoNgayLuuTru.Focus();
+                return false;
+            }
+
+            return true;
         }
     }
 }

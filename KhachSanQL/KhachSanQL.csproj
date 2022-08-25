@@ -74,6 +74,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QLKHACHSANDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="tb_DatPhong.cs" />
     <Compile Include="tb_Phong.cs" />
     <Compile Include="tb_SanPham.cs" />
     <Compile Include="tb_Tang.cs" />

@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             this.dataViewPhongGD = new System.Windows.Forms.DataGridView();
-            this.TENPHONG = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TRANGTHAI = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TENTANG = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TENLOAIPHONG = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabDatPhong = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -87,6 +83,10 @@
             this.CCCD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EMAIL = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DIACHI = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TENPHONG = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TRANGTHAI = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TENTANG = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TENLOAIPHONG = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataViewPhongGD)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabDatPhong.SuspendLayout();
@@ -116,38 +116,6 @@
             this.dataViewPhongGD.Size = new System.Drawing.Size(406, 667);
             this.dataViewPhongGD.TabIndex = 1;
             this.dataViewPhongGD.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataViewPhongGD_CellClick);
-            // 
-            // TENPHONG
-            // 
-            this.TENPHONG.DataPropertyName = "TENPHONG";
-            this.TENPHONG.HeaderText = "Số Phòng";
-            this.TENPHONG.MinimumWidth = 6;
-            this.TENPHONG.Name = "TENPHONG";
-            this.TENPHONG.Width = 50;
-            // 
-            // TRANGTHAI
-            // 
-            this.TRANGTHAI.DataPropertyName = "TRANGTHAI";
-            this.TRANGTHAI.HeaderText = "Trạng Thái";
-            this.TRANGTHAI.MinimumWidth = 6;
-            this.TRANGTHAI.Name = "TRANGTHAI";
-            this.TRANGTHAI.Width = 125;
-            // 
-            // TENTANG
-            // 
-            this.TENTANG.DataPropertyName = "TENTANG";
-            this.TENTANG.HeaderText = "Tầng";
-            this.TENTANG.MinimumWidth = 6;
-            this.TENTANG.Name = "TENTANG";
-            this.TENTANG.Width = 50;
-            // 
-            // TENLOAIPHONG
-            // 
-            this.TENLOAIPHONG.DataPropertyName = "TENLOAIPHONG";
-            this.TENLOAIPHONG.HeaderText = "Loại Phòng";
-            this.TENLOAIPHONG.MinimumWidth = 6;
-            this.TENLOAIPHONG.Name = "TENLOAIPHONG";
-            this.TENLOAIPHONG.Width = 60;
             // 
             // tabControl1
             // 
@@ -676,6 +644,37 @@
             this.DIACHI.Name = "DIACHI";
             this.DIACHI.Width = 125;
             // 
+            // TENPHONG
+            // 
+            this.TENPHONG.DataPropertyName = "TENPHONG";
+            this.TENPHONG.HeaderText = "Số Phòng";
+            this.TENPHONG.MinimumWidth = 6;
+            this.TENPHONG.Name = "TENPHONG";
+            this.TENPHONG.Width = 50;
+            // 
+            // TRANGTHAI
+            // 
+            this.TRANGTHAI.DataPropertyName = "TRANGTHAI";
+            this.TRANGTHAI.HeaderText = "Trạng Thái";
+            this.TRANGTHAI.MinimumWidth = 6;
+            this.TRANGTHAI.Name = "TRANGTHAI";
+            // 
+            // TENTANG
+            // 
+            this.TENTANG.DataPropertyName = "TENTANG";
+            this.TENTANG.HeaderText = "Tầng";
+            this.TENTANG.MinimumWidth = 6;
+            this.TENTANG.Name = "TENTANG";
+            this.TENTANG.Width = 50;
+            // 
+            // TENLOAIPHONG
+            // 
+            this.TENLOAIPHONG.DataPropertyName = "TENLOAIPHONG";
+            this.TENLOAIPHONG.HeaderText = "Loại Phòng";
+            this.TENLOAIPHONG.MinimumWidth = 6;
+            this.TENLOAIPHONG.Name = "TENLOAIPHONG";
+            this.TENLOAIPHONG.Width = 60;
+            // 
             // GiaoDienKhachSan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -756,15 +755,15 @@
         private System.Windows.Forms.Label labelFullName;
         private System.Windows.Forms.DataGridView dataViewCheckKH;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TENPHONG;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TRANGTHAI;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TENTANG;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TENLOAIPHONG;
         private System.Windows.Forms.DataGridViewTextBoxColumn IDKH1;
         private System.Windows.Forms.DataGridViewTextBoxColumn HOTEN1;
         private System.Windows.Forms.DataGridViewTextBoxColumn DIENTHOAI1;
         private System.Windows.Forms.DataGridViewTextBoxColumn CCCD1;
         private System.Windows.Forms.DataGridViewTextBoxColumn EMAIL1;
         private System.Windows.Forms.DataGridViewTextBoxColumn DIACHI1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TENPHONG;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TRANGTHAI;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TENTANG;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TENLOAIPHONG;
     }
 }
