@@ -190,16 +190,19 @@ namespace KhachSanQL
                 ShowAllPhongGD();
                 Report f = new Report();
                 f.sdt = textSDTKhachHang.Text;
+                f.luutru = textSoNgayLuuTru.Text;
                 f.giadv = textGiaDichVu.Text;
                 f.giaphong = textGiaPhong.Text;
                 f.tendv = cmbSanPham.Text;
                 f.tenphong = cmbSoPhong.Text;
                 f.tennv = labelFullName.Text;
                 f.tongtien = textTongTien.Text;
+                f.ngaydat = dateTimeCheckin.Text;
+                f.ngayra = dateTimeCheckOut.Text;
                 ////////////////////////////////////////////////////
-                textSDTKhachHang.Clear();
-
                 f.Show();
+                textSDTKhachHang.Clear();
+                textSoNgayLuuTru.Clear();
             }
             catch
             {
@@ -286,7 +289,7 @@ namespace KhachSanQL
                     sqlcmd.ExecuteNonQuery();
                     ShowAllPhongGD();
                     textSDTKH.Clear();
-                    textSoNgayLuuTru.Clear();
+                    //textSoNgayLuuTru.Clear();
                     MessageBox.Show("Đặt Phòng thành công");
                     datphongandtraphong();
                 }
