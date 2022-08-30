@@ -188,8 +188,6 @@ namespace KhachSanQL
                 sqlcmd1.ExecuteNonQuery();
                 //MessageBox.Show("Thành công");
                 ShowAllPhongGD();
-                //textSDTKhachHang.Clear();
-                textSoNgayLuuTru.Clear();
                 Report f = new Report();
                 f.sdt = textSDTKhachHang.Text;
                 f.giadv = textGiaDichVu.Text;
